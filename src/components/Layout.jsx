@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useT } from '../i18n.jsx'
 import { Wordmark } from './ui.jsx'
+import ThemePanel from './ThemePanel.jsx'
 import { scroll, product } from '../three/scrollState.js'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -184,6 +185,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <ThemePanel />
     </>
   )
 }
