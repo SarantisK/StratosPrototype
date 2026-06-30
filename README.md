@@ -1,31 +1,27 @@
 # Stratos — Website-Mockup
 
-Ein visuell hochwertiger, produktorientierter Marketing-Site-Prototyp für
-**Stratos**, ein europäisches Counter-UAS-Unternehmen (Drohnenabwehr). Dieses
-Mockup dient als Proof-of-Concept für den Kunden.
+Ein Demo-Webauftritt für **Stratos**, ein europäisches Unternehmen für
+Drohnenabwehr (Counter-UAS). Die Seite ist ein Muster für den Kunden – modern,
+dunkel und produktorientiert, mit 3D-Effekten.
 
-> **Kundenfreundliche Kurzanleitung:** siehe [`ANLEITUNG.md`](../ANLEITUNG.md)
-> im Projekt-Root.
-
-Stack: **Vite 6 · React 19 · Tailwind v4** · React Router 7 · Three.js
-(`@react-three/fiber` + `drei`, live 3D) · GSAP ScrollTrigger + Lenis
-(cinematisches, gepinntes Scrollen).
+> Eine ganz einfache Schritt-für-Schritt-Anleitung steht in
+> [`ANLEITUNG.md`](./ANLEITUNG.md) im selben Ordner.
 
 ---
 
-## Voraussetzungen
+## Was du brauchst
 
-- **Node.js 18+** (empfohlen: aktuelle LTS) inkl. `npm`
-- Browser mit WebGL (für die 3D-Szenen)
+- **Node.js 18 oder neuer** (damit kommt `npm` automatisch mit)
+- Einen Browser (Chrome, Edge, Firefox …)
+
+Prüfen, ob Node installiert ist:
 
 ```bash
 node -v
-npm -v
 ```
 
-> **Windows-Hinweis:** Node ist via winget unter `C:\Program Files\nodejs`
-> installiert, in einer frischen PowerShell-Session aber evtl. nicht im PATH.
-> Falls `node` nicht gefunden wird, PATH einmalig aktualisieren:
+> **Windows-Tipp:** Wird `node` nicht gefunden, einmal diese Zeile in
+> PowerShell ausführen und es neu versuchen:
 >
 > ```powershell
 > $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User")
@@ -33,84 +29,57 @@ npm -v
 
 ---
 
-## Installation
+## Starten in 3 Schritten
 
 ```bash
-cd stratos-site
-npm install
+cd stratos-site     # 1. In den Projektordner wechseln
+npm install         # 2. Einmalig: Pakete installieren
+npm run dev         # 3. Seite starten
 ```
+
+Danach im Browser öffnen: **http://localhost:5173**
+Zum Stoppen im Terminal **Strg + C** drücken.
 
 ---
 
-## Befehle
+## Die wichtigsten Befehle
 
-| Befehl | Zweck |
+| Befehl | Was es macht |
 |---|---|
-| `npm run dev` | Dev-Server mit Hot Reload → http://localhost:5173 (SPA-Fallback für Deep-Links) |
-| `npm run build` | Produktions-Build nach `dist/` (zugleich Kompilier-Check) |
-| `npm run preview` | Den erzeugten Build lokal ansehen |
+| `npm run dev` | Startet die Seite zum Anschauen und Bearbeiten |
+| `npm run build` | Erstellt die fertige Version zum Veröffentlichen |
+| `npm run preview` | Zeigt die fertige Version lokal an |
 
 ---
 
-## Aufbau (Kurzüberblick)
+## Wie das Projekt aufgebaut ist
 
-```
-stratos-site/
-├── src/
-│   ├── main.jsx          # Einstieg + Provider (Router, Sprache)
-│   ├── App.jsx           # Routen-Definition (9 Seiten + Redirect)
-│   ├── i18n.jsx          # Sprachumschaltung DE/EN (useT)
-│   ├── index.css         # Tailwind-v4-Theme & Basis-Styles
-│   ├── components/       # Layout, Nav, Footer, UI-Bausteine
-│   ├── pages/            # Eine Komponente pro Route
-│   ├── sections/         # Größere Abschnitte (z. B. Produkt-Cinematic)
-│   ├── three/            # 3D-Szenen (Three.js / react-three-fiber)
-│   └── graphics/         # SVG-Grafiken & Icons
-└── package.json
-```
+Der gesamte Code liegt im Ordner `src/`:
 
-Routen (deutsch): `/` · `technologie` · `produkt` · `einsatz` · `ethik` ·
-`newsroom` · `ueber` · `karriere` · `kontakt`. Mehrseitig (echtes React
-Router), zweisprachig (**Deutsch primär**, EN umschaltbar), dunkel/cinematisch.
+- `pages/` – die einzelnen Seiten (Start, Produkt, Technologie, Kontakt …)
+- `components/` – wiederkehrende Bausteine (Navigation, Footer …)
+- `three/` – die 3D-Szenen
+- `graphics/` – Grafiken und Icons
+- `i18n.jsx` – Umschaltung Deutsch / Englisch
+
+Die Seite hat 9 Unterseiten, ist zweisprachig (Deutsch zuerst) und im
+dunklen, cinematischen Look gehalten.
 
 ---
 
-## Hinweise & Gotchas
+## Gut zu wissen
 
-- **3D/WebGL:** Home und Produktseite enthalten je eine gepinnte 3D-Szene.
-  Die `<Canvas>` pausiert (`frameloop="never"`), wenn sie aus dem Viewport
-  scrollt.
-- **Bundle-Größe:** ~1,3 MB (Three + drei) — für ein Mockup akzeptabel;
-  bei Bedarf die 3D-Canvases lazy-laden.
-- **PowerShell-Build-Warnung:** PowerShell verpackt Vites Chunk-Size-Warnung
-  als `NativeCommandError` — **harmlos**, solange der Exit-Code `0` ist.
-- **Reduced Motion:** Bei `prefers-reduced-motion` werden Lenis/Pinning und
-  3D-Animationen automatisch deaktiviert.
-- **Umlaute:** Deutsche Sonderzeichen (ä/ö/ü/ß) korrekt schreiben, Dateien
+- **3D braucht WebGL** – das können alle modernen Browser.
+- Nach Änderungen am besten einmal `npm run build` laufen lassen, um zu
+  prüfen, dass alles fehlerfrei baut.
+- Deutsche Sonderzeichen (ä, ö, ü, ß) immer korrekt schreiben und Dateien
   als UTF-8 speichern.
-- **Immer mit `npm run build` verifizieren** — fängt r3f/GSAP/Router-Probleme,
-  die der Dev-Server maskieren kann.
 
 ---
 
-## Nächste Schritte
+## Worum es bei Stratos geht
 
-- **Inhalte finalisieren** — Platzhalter durch finale Inhalte ersetzen
-  (Quelle: die Strategie-`.md`-Dateien im Projekt-Root).
-- **Performance** — 3D-`<Canvas>` lazy-laden, um das initiale Bundle zu
-  verkleinern.
-- **SEO/Meta** — Title, Meta-Description und Open-Graph je Route.
-- **Deployment** — `dist/` auf einem Static Host (Vercel/Netlify/Cloudflare
-  Pages) veröffentlichen; SPA-Fallback für Deep-Links konfigurieren.
-- **Kontaktformular** — an ein echtes Backend/Mail anbinden.
-- **Accessibility** — vor dem Finalisieren erneut gegen die
-  Web-Design-Guidelines prüfen.
-
----
-
-## Hintergrund
-
-Stratos positioniert sich als **defensives, nicht-letales / sprengstofffreies**
-Counter-UAS-System mit KI-Zielerkennung und Human-in-the-Loop — der zivil
-einsetzbare Schutz für kritische Infrastruktur. Strategie- und
-Inhaltsgrundlage sind die `.md`-Dateien im Projekt-Root.
+Stratos schützt kritische Infrastruktur vor Drohnen – **defensiv,
+nicht-tödlich und ohne Sprengstoff**, mit KI-Erkennung und einem Menschen,
+der die Kontrolle behält. Inhalt und Strategie stehen in den `.md`-Dateien
+im Hauptordner.
